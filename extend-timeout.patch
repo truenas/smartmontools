@@ -1,0 +1,28 @@
+diff --git a/smartmontools/smartd.cpp b/smartmontools/smartd.cpp
+index 96f3445b..435b9dee 100644
+--- a/smartmontools/smartd.cpp
++++ b/smartmontools/smartd.cpp
+@@ -255,6 +255,13 @@ static inline bool notify_post_init()
+   return true;
+ }
+ 
++static inline void notify_extend_timeout()
++{
++  if (!notify_enabled)
++    return;
++  sd_notify(0, "EXTEND_TIMEOUT_USEC=90000000"); // we use a default timeout of 1min 30sec
++}
++
+ static void notify_msg(const char * msg, bool ready = false)
+ {
+   if (!notify_enabled)
+@@ -5569,6 +5576,9 @@ static bool register_devices(const dev_config_vector & conf_entries, smart_devic
+       }
+     }
+ 
++    // Prevent systemd unit timeout when registering many devices
++    notify_extend_timeout();
++
+     // Register device
+     // If scanning, pass dev_idinfo of previous devices for duplicate check
+     dev_state state;

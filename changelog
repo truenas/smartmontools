@@ -1,0 +1,5 @@
+smartmontools (7.99-1) unstable; urgency=medium
+
+  * Add custom TrueNAS patches
+
+ -- Vladimir Vinogradenko <vladimirv@ixsystems.com>  Tue, 24 May 2022 15:17:00 +0200
