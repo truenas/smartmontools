@@ -1,5 +1,3 @@
-diff --git a/smartmontools/smartd.cpp b/smartmontools/smartd.cpp
-index 96f3445b..435b9dee 100644
 --- a/smartmontools/smartd.cpp
 +++ b/smartmontools/smartd.cpp
 @@ -255,6 +255,13 @@ static inline bool notify_post_init()
