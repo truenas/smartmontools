@@ -1,5 +1,5 @@
---- a/smartmontools/smartd.cpp
-+++ b/smartmontools/smartd.cpp
+--- a/smartd.cpp
++++ b/smartd.cpp
 @@ -255,6 +255,13 @@ static inline bool notify_post_init()
    return true;
  }
