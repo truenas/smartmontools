@@ -49,6 +49,16 @@
  static inline void notify_msg(const char *) { }
  static inline void notify_check(int) { }
  static inline void notify_wait(time_t, int) { }
+@@ -3956,6 +3956,9 @@ static void CheckDevicesOnce(const dev_config_vector & configs, dev_state_vector
+       SCSICheckDevice(cfg, state, dev->to_scsi(), allow_selftests);
+     else if (dev->is_nvme())
+       NVMeCheckDevice(cfg, state, dev->to_nvme());
++
++    // Prevent systemd unit startup timeout when checking many devices on startup
++    notify_extend_timeout();
+   }
+ 
+   do_disable_standby_check(configs, states);
 @@ -5569,6 +5584,9 @@ static bool register_devices(const dev_config_vector & conf_entries, smart_devic
        }
      }
