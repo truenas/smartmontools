@@ -1,0 +1,29 @@
+--- a/nvmeprint.cpp
++++ b/nvmeprint.cpp
+@@ -751,7 +751,6 @@ int nvmePrintMain(nvme_device * device, const nvme_print_options & options)
+ 
+   // Check for self-test support
+   bool self_test_sup = !!(id_ctrl.oacs & 0x0010);
+-  unsigned self_test_nsid = device->get_nsid(); // TODO: Support NSID=0 to test controller
+ 
+   // Read and print Self-test log, check for running test
+   int self_test_completion = -1;
+@@ -760,7 +759,8 @@ int nvmePrintMain(nvme_device * device, const nvme_print_options & options)
+       pout("Self-tests not supported\n\n");
+     else {
+       nvme_self_test_log self_test_log;
+-      if (!nvme_read_self_test_log(device, self_test_nsid, self_test_log)) {
++      unsigned self_test_log_nsid = 0xffffffff;
++      if (!nvme_read_self_test_log(device, self_test_log_nsid, self_test_log)) {
+         jerr("Read Self-test Log failed: %s\n\n", device->get_errmsg());
+         return retval | FAILSMART;
+       }
+@@ -814,6 +814,8 @@ int nvmePrintMain(nvme_device * device, const nvme_print_options & options)
+       retval |= FAILSMART;
+     }
+     else {
++      // TODO: Support NSID=0 to test controller
++      unsigned self_test_nsid = device->get_nsid();
+       if (!nvme_self_test(device, options.smart_selftest_type, self_test_nsid)) {
+         jerr("NVMe Self-test cmd with type=0x%x, nsid=0x%x failed: %s\n\n",
+              options.smart_selftest_type, self_test_nsid, device->get_errmsg());

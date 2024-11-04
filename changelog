@@ -1,0 +1,18 @@
+smartmontools (7.99-2) unstable; urgency=medium
+
+  nvmeprint.cpp: fix self-test for devices with multiple namespaces.
+  Use broadcast NSID for (06h) log page access to prevent `Invalid
+  Field in Command` error when accessing the log page. Also, use
+  device NSID for both single and multi namespace devices when
+  issuing the Device Self-test (14h) command.
+
+ -- Ameer Hamza <ahamza@ixsystems.com>  Tue, 5 Nov 2024 15:17:00 +0200
+
+smartmontools (7.99-1) unstable; urgency=medium
+
+  smartd.cpp: Add support for writing attribute information for
+  NVMe devices in smartd, similar to how it is already handled
+  for SCSI and ATA device types.
+
+ -- Ameer Hamza <ahamza@ixsystems.com>  Tue, 5 Nov 2024 15:17:00 +0200
+
