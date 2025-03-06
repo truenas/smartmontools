@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 VERSION=7.4
-REVISION=2
+REVISION=3
 
 wget http://deb.debian.org/debian/pool/main/s/smartmontools/smartmontools_$VERSION-$REVISION.debian.tar.xz
 tar xf smartmontools_$VERSION-$REVISION.debian.tar.xz
